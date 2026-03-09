@@ -83,7 +83,7 @@ public class TourQueryService : ITourQueryService
             t.Region.Contains(search)
         );
 
-        if (DateTime.TryParse(search, out var parsedDate))
+        if (DateTime.TryParse(search, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
             query = query.Where(t => t.StartDate.Date == parsedDate.Date);
 
         return await query

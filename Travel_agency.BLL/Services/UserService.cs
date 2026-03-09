@@ -82,8 +82,7 @@ namespace Travel_agency.BLL.Services
         public async Task<UserModel> UpdateUserProfileAsync(UserModel updateModel)
         {
             ValidateUserModel(updateModel);
-
-            var userEntity = await _unitOfWork.Users.GetUserByIdAsync(updateModel.Id);
+            _ = await _unitOfWork.Users.GetUserByIdAsync(updateModel.Id);
             var updatedUserEntity = await _unitOfWork.Users.UpdateUserAsync(_mapper.Map<UserEntity>(updateModel));
             if (updatedUserEntity == null)
             {
@@ -94,7 +93,7 @@ namespace Travel_agency.BLL.Services
             return _mapper.Map<UserModel>(updatedUserEntity);
         }
 
-        private void ValidateUserModel(UserModel model)
+        private static void ValidateUserModel(UserModel model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model), "User object cannot be null.");

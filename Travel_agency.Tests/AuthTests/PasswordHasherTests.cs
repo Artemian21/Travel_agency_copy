@@ -5,7 +5,7 @@ namespace Travel_agency.Tests.AuthTests;
 
 public class PasswordHasherTests
 {
-    private readonly IPasswordHasher _passwordHasher;
+    private readonly PasswordHasher _passwordHasher;
     private readonly IFixture _fixture;
 
     public PasswordHasherTests()

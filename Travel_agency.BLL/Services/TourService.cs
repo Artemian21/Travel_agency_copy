@@ -88,10 +88,9 @@ namespace Travel_agency.BLL.Services
             return true;
         }
 
-        private void ValidateTourModel(TourModel model)
+        private static void ValidateTourModel(TourModel model)
         {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
+            ArgumentNullException.ThrowIfNull(model);
 
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new BusinessValidationException("Tour name is required.");

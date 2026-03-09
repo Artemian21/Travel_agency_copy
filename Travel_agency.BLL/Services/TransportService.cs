@@ -71,7 +71,7 @@ namespace Travel_agency.BLL.Services
             return true;
         }
 
-        private void ValidateTransportModel(TransportModel model)
+        private static void ValidateTransportModel(TransportModel model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));

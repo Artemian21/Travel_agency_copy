@@ -72,7 +72,7 @@ namespace Travel_agency.BLL.Services
             return true;
         }
 
-        private void ValidateTourBookingModel(TourBookingModel model)
+        private static void ValidateTourBookingModel(TourBookingModel model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model), "Tour booking cannot be null.");

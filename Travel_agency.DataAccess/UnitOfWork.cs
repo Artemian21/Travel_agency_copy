@@ -3,7 +3,7 @@ using Travel_agency.DataAccess.Repository;
 
 namespace Travel_agency.DataAccess
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly TravelAgencyDbContext _context;
 
@@ -49,6 +49,7 @@ namespace Travel_agency.DataAccess
         public void Dispose()
         {
             Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

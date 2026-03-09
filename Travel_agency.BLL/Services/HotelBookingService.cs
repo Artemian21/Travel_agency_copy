@@ -76,7 +76,7 @@ namespace Travel_agency.BLL.Services
             return true;
         }
 
-        private void ValidateHotelBookingModel(HotelBookingModel model)
+        private static void ValidateHotelBookingModel(HotelBookingModel model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model), "Booking object cannot be null.");

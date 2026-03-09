@@ -6,7 +6,7 @@ namespace Travel_agency.DataAccess.Repository
 {
     public class TourBookingRepository : ITourBookingRepository
     {
-        private TravelAgencyDbContext _context;
+        private readonly TravelAgencyDbContext _context;
 
         public TourBookingRepository(TravelAgencyDbContext context)
         {

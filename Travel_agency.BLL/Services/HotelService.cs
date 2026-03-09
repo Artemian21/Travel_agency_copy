@@ -70,7 +70,7 @@ namespace Travel_agency.BLL.Services
             return true;
         }
 
-        private void ValidateHotelModel(HotelModel model)
+        private static void ValidateHotelModel(HotelModel model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model), "Hotel object cannot be null.");

@@ -25,25 +25,25 @@ namespace Travel_agency.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<UserModel> Register(RegisterUserModel register)
+        public async Task<UserModel> Register(RegisterUserModel registerModel)
         {
-            if (register == null)
-                throw new ArgumentNullException(nameof(register), "Register data cannot be null");
+            if (registerModel == null)
+                throw new ArgumentNullException(nameof(registerModel), "Register data cannot be null");
 
-            var existingByEmail = await _unitOfWork.Users.GetUserByEmailAsync(register.Email);
+            var existingByEmail = await _unitOfWork.Users.GetUserByEmailAsync(registerModel.Email);
             if (existingByEmail != null)
                 throw new ConflictException("Email is already in use");
 
-            if (!IsPasswordStrong(register.Password))
+            if (!IsPasswordStrong(registerModel.Password))
                 throw new ValidationException("Password must be at least 8 characters long and include uppercase, lowercase, digit, and special character");
 
-            var passwordHash = _passwordHasher.GenerateHash(register.Password);
+            var passwordHash = _passwordHasher.GenerateHash(registerModel.Password);
 
             var userEntity = new UserEntity
             {
                 Id = Guid.NewGuid(),
-                Username = register.Username,
-                Email = register.Email,
+                Username = registerModel.Username,
+                Email = registerModel.Email,
                 PasswordHash = passwordHash,
                 Role = UserRole.Registered
             };
@@ -71,7 +71,7 @@ namespace Travel_agency.BLL.Services
             return (token, userModel);
         }
 
-        private bool IsPasswordStrong(string password)
+        private static bool IsPasswordStrong(string password)
         {
             var pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$";
             return Regex.IsMatch(password, pattern);
