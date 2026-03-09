@@ -18,7 +18,7 @@ using Travel_agency.PL.Models.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TravelAgencyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Use Local or Default connection string 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection"))); // Use Local or Default connection string 
 
 builder.Services.AddScoped<IHotelBookingRepository, HotelBookingRepository>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
