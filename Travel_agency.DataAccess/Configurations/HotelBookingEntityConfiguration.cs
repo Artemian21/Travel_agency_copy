@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Travel_agency.DataAccess.Entities;
 
 namespace Travel_agency.DataAccess.Configurations
@@ -20,7 +15,7 @@ namespace Travel_agency.DataAccess.Configurations
             builder.Property(hb => hb.EndDate).IsRequired();
             builder.Property(hb => hb.NumberOfGuests).IsRequired();
             builder.Property(hb => hb.Status).HasConversion<string>().IsRequired().HasMaxLength(50);
-            
+
             builder.HasOne(hb => hb.User)
                 .WithMany(u => u.HotelBookings)
                 .HasForeignKey(hb => hb.UserId)

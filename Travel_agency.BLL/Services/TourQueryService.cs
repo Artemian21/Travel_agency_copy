@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Travel_agency.BLL.Abstractions;
 using Travel_agency.Core.BusinessModels.Tours;
 using Travel_agency.DataAccess.Abstraction;
+using Travel_agency.DataAccess.Entities;
 
 namespace Travel_agency.BLL.Services;
 
@@ -20,70 +21,73 @@ public class TourQueryService : ITourQueryService
 
     public async Task<IEnumerable<TourModel>> GetFilteredToursAsync(TourFilterModel filter)
     {
-        var tours = await _unitOfWork.Tours.GetAllToursAsync();
+        var query = _unitOfWork.Tours.Query(); // IQueryable<TourEntity>
 
+        query = ApplyFilters(query, filter);
+
+        return await query
+            .ProjectTo<TourModel>(_mapper.ConfigurationProvider)
+            .ToListAsync();
+    }
+
+    private static IQueryable<TourEntity> ApplyFilters(
+        IQueryable<TourEntity> query,
+        TourFilterModel filter)
+    {
         if (!string.IsNullOrWhiteSpace(filter.Country))
         {
-            var country = filter.Country.Trim().ToLower();
-            tours = tours.Where(t => t.Country?.ToLower() == country).ToList();
+            var country = filter.Country.Trim();
+            query = query.Where(t => t.Country == country);
         }
 
         if (filter.Type.HasValue)
-        {
-            tours = tours.Where(t => t.Type == filter.Type.Value).ToList();
-        }
+            query = query.Where(t => t.Type == filter.Type.Value);
 
         if (!string.IsNullOrWhiteSpace(filter.Region))
         {
-            var region = filter.Region.Trim().ToLower();
-            tours = tours.Where(t => t.Region?.ToLower() == region).ToList();
+            var region = filter.Region.Trim();
+            query = query.Where(t => t.Region == region);
         }
 
         if (!string.IsNullOrWhiteSpace(filter.Name))
         {
-            var name = filter.Name.Trim().ToLower();
-            tours = tours.Where(t => t.Name?.ToLower().Contains(name) == true).ToList();
+            var name = filter.Name.Trim();
+            query = query.Where(t => t.Name.Contains(name));
         }
 
         if (filter.StartDateFrom.HasValue)
-        {
-            tours = tours.Where(t => t.StartDate >= filter.StartDateFrom.Value).ToList();
-        }
+            query = query.Where(t => t.StartDate >= filter.StartDateFrom.Value);
 
         if (filter.StartDateTo.HasValue)
-        {
-            tours = tours.Where(t => t.StartDate <= filter.StartDateTo.Value).ToList();
-        }
+            query = query.Where(t => t.StartDate <= filter.StartDateTo.Value);
 
         if (filter.Price.HasValue)
-        {
-            tours = tours.Where(t => t.Price <= filter.Price.Value).ToList();
-        }
+            query = query.Where(t => t.Price <= filter.Price.Value);
 
-        return _mapper.Map<IEnumerable<TourModel>>(tours);
+        return query;
     }
 
     public async Task<IEnumerable<TourModel>> SearchToursAsync(string searchQuery)
     {
-        var tours = await _unitOfWork.Tours.GetAllToursAsync();
+        if (string.IsNullOrWhiteSpace(searchQuery))
+            return Enumerable.Empty<TourModel>();
 
-        if (!string.IsNullOrWhiteSpace(searchQuery))
-        {
-            var search = searchQuery.Trim().ToLower();
+        var search = searchQuery.Trim();
 
-            tours = tours.Where(t =>
-                (t.Name?.ToLower().Contains(search) ?? false) ||
-                (t.Type.ToString().ToLower().Contains(search)) ||
-                (t.Country?.ToLower().Contains(search) ?? false) ||
-                (t.Region?.ToLower().Contains(search) ?? false)
-            ).ToList();
+        var query = _unitOfWork.Tours.Query();
 
-            if (DateTime.TryParse(search, out var parsedDate))
-            {
-                tours = tours.Where(t => t.StartDate.Date == parsedDate.Date).ToList();
-            }
-        }
+        query = query.Where(t =>
+            t.Name.Contains(search) ||
+            t.Type.ToString().Contains(search) ||
+            t.Country.Contains(search) ||
+            t.Region.Contains(search)
+        );
 
-        return _mapper.Map<IEnumerable<TourModel>>(tours);
+        if (DateTime.TryParse(search, out var parsedDate))
+            query = query.Where(t => t.StartDate.Date == parsedDate.Date);
+
+        return await query
+            .ProjectTo<TourModel>(_mapper.ConfigurationProvider)
+            .ToListAsync();
     }
 }

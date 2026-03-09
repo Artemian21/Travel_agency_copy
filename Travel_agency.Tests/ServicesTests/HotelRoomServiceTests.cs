@@ -4,9 +4,9 @@ using AutoFixture.AutoNSubstitute;
 using AutoMapper;
 using NSubstitute;
 using Travel_agency.BLL.Services;
+using Travel_agency.Core.BusinessModels.Hotels;
 using Travel_agency.Core.Enums;
 using Travel_agency.Core.Exceptions;
-using Travel_agency.Core.BusinessModels.Hotels;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
 
@@ -114,7 +114,7 @@ public class HotelRoomServiceTests
         Assert.Equal(resultModel, result);
     }
 
-[Theory]
+    [Theory]
     [InlineData(null)]
     public async Task AddHotelRoomAsync_ThrowsIfModelInvalid(HotelRoomModel? model)
     {

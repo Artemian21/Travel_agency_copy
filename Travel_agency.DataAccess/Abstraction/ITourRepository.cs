@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Travel_agency.DataAccess.Entities;
+﻿using Travel_agency.DataAccess.Entities;
 
 namespace Travel_agency.DataAccess.Abstraction
 {
@@ -16,5 +11,6 @@ namespace Travel_agency.DataAccess.Abstraction
         Task<int> GetTotalToursCountAsync();
         Task<TourEntity> GetTourByIdAsync(Guid tourId);
         Task<TourEntity> UpdateTourAsync(TourEntity updatedTour);
+        IQueryable<TourEntity> Query();
     }
 }

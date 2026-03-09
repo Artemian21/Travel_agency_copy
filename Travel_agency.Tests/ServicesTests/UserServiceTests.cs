@@ -3,9 +3,9 @@ using AutoFixture.AutoNSubstitute;
 using AutoMapper;
 using NSubstitute;
 using Travel_agency.BLL.Services;
+using Travel_agency.Core.BusinessModels.Users;
 using Travel_agency.Core.Enums;
 using Travel_agency.Core.Exceptions;
-using Travel_agency.Core.BusinessModels.Users;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
 

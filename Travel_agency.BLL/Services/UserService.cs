@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Travel_agency.BLL.Abstractions;
+using Travel_agency.Core.BusinessModels.Users;
 using Travel_agency.Core.Enums;
 using Travel_agency.Core.Exceptions;
-using Travel_agency.Core.BusinessModels.Users;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
 
@@ -24,7 +19,7 @@ namespace Travel_agency.BLL.Services
             this._mapper = mapper;
         }
 
-        public async Task<bool> AssignUserRoleAsync(Guid userId, UserRole role)
+        public async Task<bool> AssignUserRoleAsync(Guid userId, UserRole? role)
         {
             var userEntity = await _unitOfWork.Users.GetUserByIdAsync(userId);
             if (userEntity == null)
@@ -32,7 +27,7 @@ namespace Travel_agency.BLL.Services
                 throw new NotFoundException($"User with ID {userId} not found.");
             }
 
-            userEntity.Role = role;
+            userEntity.Role = (UserRole)role;
             await _unitOfWork.Users.UpdateUserAsync(userEntity);
             await _unitOfWork.SaveChangesAsync();
             return true;

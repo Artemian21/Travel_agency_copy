@@ -15,14 +15,14 @@ namespace Travel_agency.PL
             CreateMap<UserRequest, UserModel>();
             CreateMap<UserModel, UserResponse>();
 
-            CreateMap<RegisterUserRequest,  RegisterUserModel>();
+            CreateMap<RegisterUserRequest, RegisterUserModel>();
 
             CreateMap<TransportRequest, TransportModel>();
             CreateMap<TransportModel, TransportResponse>();
 
             CreateMap<TourRequest, TourModel>();
             CreateMap<TourModel, TourResponse>();
-            CreateMap<TourFilterRequest , TourFilterModel>();
+            CreateMap<TourFilterRequest, TourFilterModel>();
 
             CreateMap<TourBookingRequest, TourBookingModel>();
             CreateMap<TourBookingModel, TourBookingResponse>();

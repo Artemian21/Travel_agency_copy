@@ -1,19 +1,14 @@
 ﻿
-using AutoFixture.AutoNSubstitute;
 using AutoFixture;
+using AutoFixture.AutoNSubstitute;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NSubstitute;
 using Travel_agency.BLL.Services;
+using Travel_agency.Core.BusinessModels.Transports;
 using Travel_agency.Core.Enums;
 using Travel_agency.Core.Exceptions;
-using Travel_agency.Core.BusinessModels.Transports;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
-using NSubstitute;
 
 namespace Travel_agency.Tests.ServicesTests;
 
@@ -105,7 +100,7 @@ public class TicketBookingServiceTests
 
         await Assert.ThrowsAsync<BusinessValidationException>(() => _service.AddTicketBookingAsync(model));
     }
-    
+
     [Fact]
     public async Task UpdateTicketBookingAsync_ValidInput_ReturnsUpdatedModel()
     {

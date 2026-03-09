@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Travel_agency.BLL.Abstractions;
-using Travel_agency.BLL.Services;
-using Travel_agency.Core.BusinessModels;
 using Travel_agency.Core.BusinessModels.Hotels;
 using Travel_agency.PL.Models.Requests;
 using Travel_agency.PL.Models.Responses;
@@ -84,7 +81,7 @@ namespace Travel_agency.PL.Controllers
             return Ok(_mapper.Map<HotelBookingResponse>(createdBooking));
         }
 
-            [HttpPut("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateHotelBooking(Guid id, [FromBody] HotelBookingRequest hotelBooking)
         {
             if (hotelBooking == null)

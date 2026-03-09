@@ -17,10 +17,7 @@ namespace Travel_agency.DataAccess
         private IUserRepository _userRepository;
         private bool _disposed = false;
 
-        public UnitOfWork(TravelAgencyDbContext context)
-        {
-            _context = context;
-        }
+        public UnitOfWork(TravelAgencyDbContext context) => _context = context;
 
         public IHotelBookingRepository HotelBookings => _hotelBookingRepository ??= new HotelBookingRepository(_context);
         public IHotelRepository Hotels => _hotelRepository ??= new HotelRepository(_context);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Travel_agency.Core.Exceptions
+﻿namespace Travel_agency.Core.Exceptions
 {
     public class BusinessValidationException : Exception
     {

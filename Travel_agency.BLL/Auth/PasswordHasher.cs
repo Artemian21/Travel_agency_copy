@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Travel_agency.BLL.Abstractions;
+﻿using Travel_agency.BLL.Abstractions;
 
 namespace Travel_agency.BLL.Auth
 {

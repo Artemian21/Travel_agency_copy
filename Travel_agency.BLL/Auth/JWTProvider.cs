@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Travel_agency.BLL.Abstractions;
 using Travel_agency.Core.BusinessModels.Users;
 

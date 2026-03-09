@@ -1,15 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.AutoNSubstitute;
-using Travel_agency.BLL.Abstractions;
-using Travel_agency.DataAccess.Abstraction;
 using AutoMapper;
 using NSubstitute;
+using System.ComponentModel.DataAnnotations;
+using Travel_agency.BLL.Abstractions;
 using Travel_agency.BLL.Services;
-using Travel_agency.Core.Exceptions;
 using Travel_agency.Core.BusinessModels.Users;
+using Travel_agency.Core.Exceptions;
+using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
-using Travel_agency.DataAccess;
 
 namespace Travel_agency.Tests.ServicesTests;
 
@@ -63,7 +62,7 @@ public class AuthServiceTests
         var model = _fixture.Build<RegisterUserModel>()
                           .With(x => x.Password, "weak")
                           .Create();
-        _unitOfWork.Users.GetUserByEmailAsync(model.Email).Returns((UserEntity)null);
+        _unitOfWork.Users.GetUserByEmailAsync(model.Email).Returns(null as UserEntity);
 
         // Act & Assert
         await Assert.ThrowsAsync<ValidationException>(() => _authService.Register(model));
@@ -76,7 +75,7 @@ public class AuthServiceTests
         var model = _fixture.Build<RegisterUserModel>()
                           .With(x => x.Password, "StrongPass1!")
                           .Create();
-        _unitOfWork.Users.GetUserByEmailAsync(model.Email).Returns((UserEntity)null);
+        _unitOfWork.Users.GetUserByEmailAsync(model.Email).Returns(null as UserEntity);
 
         var userEntity = _fixture.Build<UserEntity>()
                                  .With(x => x.Email, model.Email)
@@ -108,7 +107,7 @@ public class AuthServiceTests
     public async Task Login_ThrowsNotFoundException_WhenUserNotFound()
     {
         // Arrange
-        _unitOfWork.Users.GetUserByEmailAsync(Arg.Any<string>()).Returns((UserEntity)null);
+        _unitOfWork.Users.GetUserByEmailAsync(Arg.Any<string>()).Returns(null as UserEntity);
 
         // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(() => _authService.Login("test@example.com", "Password1!"));
@@ -121,8 +120,8 @@ public class AuthServiceTests
         var user = _fixture.Create<UserEntity>();
         _unitOfWork.Users.GetUserByEmailAsync(user.Email).Returns(user);
         _passwordHasher.VerifyHash(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-        
-// Act & Assert
+
+        // Act & Assert
         await Assert.ThrowsAsync<UnauthorizedAccessException>(() => _authService.Login(user.Email, "wrongPass"));
     }
 

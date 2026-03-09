@@ -1,11 +1,11 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using AutoFixture;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AutoFixture;
-using Microsoft.Extensions.Configuration;
 using Travel_agency.BLL.Auth;
-using Travel_agency.Core.Enums;
 using Travel_agency.Core.BusinessModels.Users;
+using Travel_agency.Core.Enums;
 
 namespace Travel_agency.Tests.AuthTests;
 

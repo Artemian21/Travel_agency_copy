@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Travel_agency.DataAccess.Entities;
 
 namespace Travel_agency.DataAccess.Configurations
@@ -28,7 +23,7 @@ namespace Travel_agency.DataAccess.Configurations
             builder.Property(t => t.StartDate).IsRequired();
             builder.Property(t => t.EndDate).IsRequired();
             builder.Property(t => t.ImageUrl).HasMaxLength(255);
-            
+
             builder.HasMany(t => t.TourBookings)
                 .WithOne(tb => tb.Tour)
                 .HasForeignKey(tb => tb.TourId)

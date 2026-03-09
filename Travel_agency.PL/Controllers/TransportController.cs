@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.Xml;
 using Travel_agency.BLL.Abstractions;
-using Travel_agency.BLL.Services;
-using Travel_agency.Core.BusinessModels;
 using Travel_agency.Core.BusinessModels.Transports;
 using Travel_agency.PL.Models.Requests;
 using Travel_agency.PL.Models.Responses;

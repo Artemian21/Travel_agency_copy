@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Travel_agency.BLL;
 using Travel_agency.BLL.Abstractions;
 using Travel_agency.BLL.Auth;
 using Travel_agency.BLL.Services;
@@ -12,9 +13,8 @@ using Travel_agency.DataAccess;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Repository;
 using Travel_agency.PL;
-using Travel_agency.PL.Models.Requests;
 using Travel_agency.PL.Middlewares;
-using Travel_agency.BLL;
+using Travel_agency.PL.Models.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TravelAgencyDbContext>(options =>
@@ -151,7 +151,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<TravelAgencyDbContext>();
-    db.Database.Migrate();
+    await db.Database.MigrateAsync();
 }
 
 // Configure the HTTP request pipeline.
@@ -171,4 +171,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

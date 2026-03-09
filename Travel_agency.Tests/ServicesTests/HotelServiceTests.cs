@@ -3,8 +3,8 @@ using AutoFixture.AutoNSubstitute;
 using AutoMapper;
 using NSubstitute;
 using Travel_agency.BLL.Services;
-using Travel_agency.Core.Exceptions;
 using Travel_agency.Core.BusinessModels.Hotels;
+using Travel_agency.Core.Exceptions;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
 
@@ -71,7 +71,7 @@ public class HotelServiceTests
     public async Task GetHotelByIdAsync_WhenNotFound_ThrowsNotFoundException()
     {
         var hotelId = Guid.NewGuid();
-        _unitOfWorkMock.Hotels.GetHotelByIdAsync(hotelId).Returns((HotelEntity)null);
+        _unitOfWorkMock.Hotels.GetHotelByIdAsync(hotelId).Returns(null as HotelEntity);
 
         var ex = await Assert.ThrowsAsync<NotFoundException>(() => _hotelService.GetHotelByIdAsync(hotelId));
         Assert.Contains(hotelId.ToString(), ex.Message);
@@ -161,7 +161,7 @@ public class HotelServiceTests
         var hotelEntity = _fixture.Create<HotelEntity>();
 
         _mapperMock.Map<HotelEntity>(hotelModel).Returns(hotelEntity);
-        _unitOfWorkMock.Hotels.UpdateHotelAsync(hotelEntity).Returns((HotelEntity)null);
+        _unitOfWorkMock.Hotels.UpdateHotelAsync(hotelEntity).Returns(null as HotelEntity);
 
         var ex = await Assert.ThrowsAsync<NotFoundException>(() => _hotelService.UpdateHotelAsync(hotelModel));
         Assert.Contains(hotelModel.Id.ToString(), ex.Message);
@@ -186,7 +186,7 @@ public class HotelServiceTests
     {
         var hotelId = Guid.NewGuid();
 
-        _unitOfWorkMock.Hotels.GetHotelByIdAsync(hotelId).Returns((HotelEntity)null);
+        _unitOfWorkMock.Hotels.GetHotelByIdAsync(hotelId).Returns(null as HotelEntity);
 
         var ex = await Assert.ThrowsAsync<NotFoundException>(() => _hotelService.DeleteHotelAsync(hotelId));
         Assert.Contains(hotelId.ToString(), ex.Message);

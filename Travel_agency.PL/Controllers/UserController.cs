@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Travel_agency.BLL.Abstractions;
 using Travel_agency.Core.Enums;
-using Travel_agency.Core.BusinessModels;
-using Travel_agency.Core.BusinessModels.Users;
 using Travel_agency.PL.Models.Requests;
 using Travel_agency.PL.Models.Responses;
 
@@ -110,7 +107,7 @@ namespace Travel_agency.PL.Controllers
 
         [HttpPut("role/{id}")]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> ChangeUserRole(Guid id, [FromBody] UserRole userRole)
+        public async Task<IActionResult> ChangeUserRole(Guid id, [FromBody] UserRole? userRole)
         {
             if (userRole == null)
             {

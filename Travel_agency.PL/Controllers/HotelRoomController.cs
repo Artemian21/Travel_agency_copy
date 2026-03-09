@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using Travel_agency.BLL.Abstractions;
-using Travel_agency.Core.BusinessModels;
 using Travel_agency.Core.BusinessModels.Hotels;
 using Travel_agency.PL.Models.Requests;
 using Travel_agency.PL.Models.Responses;

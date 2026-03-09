@@ -1,18 +1,12 @@
-﻿using AutoFixture.AutoNSubstitute;
-using AutoFixture;
+﻿using AutoFixture;
+using AutoFixture.AutoNSubstitute;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NSubstitute;
 using Travel_agency.BLL.Services;
 using Travel_agency.Core.BusinessModels.Tours;
+using Travel_agency.Core.Enums;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
-using NSubstitute;
-using Travel_agency.Core.Enums;
-using Travel_agency.DataAccess.Repository;
 
 namespace Travel_agency.Tests.ServicesTests;
 
@@ -110,8 +104,8 @@ public class TourQueryServiceTests
         _tourRepository.GetAllToursAsync().Returns(Task.FromResult<IEnumerable<TourEntity>>(testTours));
 
         var sut = new TourQueryService(_unitOfWork, _mapper);
-        
-    var result = await sut.SearchToursAsync("city walk");
+
+        var result = await sut.SearchToursAsync("city walk");
 
         Assert.Single(result);
         Assert.All(result, r => Assert.Contains("city walk", r.Name, StringComparison.OrdinalIgnoreCase));
@@ -143,4 +137,4 @@ public class TourQueryServiceTests
 
         Assert.Equal(testTours.Count, result.Count());
     }
-}   
+}

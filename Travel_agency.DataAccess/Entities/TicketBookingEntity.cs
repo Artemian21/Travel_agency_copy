@@ -9,7 +9,7 @@ namespace Travel_agency.DataAccess.Entities
         public Guid UserId { get; set; }
         public DateTime BookingDate { get; set; }
         public Status Status { get; set; }
-        public TransportEntity Transport { get; set; }
-        public UserEntity User { get; set; }
+        public required TransportEntity Transport { get; set; }
+        public required UserEntity User { get; set; }
     }
 }

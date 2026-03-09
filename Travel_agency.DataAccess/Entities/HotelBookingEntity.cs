@@ -11,7 +11,7 @@ namespace Travel_agency.DataAccess.Entities
         public DateTime EndDate { get; set; }
         public int NumberOfGuests { get; set; }
         public Status Status { get; set; }
-        public HotelRoomEntity HotelRoom { get; set; }
-        public UserEntity User { get; set; }
+        public required HotelRoomEntity HotelRoom { get; set; }
+        public required UserEntity User { get; set; }
     }
 }

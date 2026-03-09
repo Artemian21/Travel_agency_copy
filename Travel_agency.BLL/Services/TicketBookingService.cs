@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Travel_agency.BLL.Abstractions;
+using Travel_agency.Core.BusinessModels.Transports;
 using Travel_agency.Core.Enums;
 using Travel_agency.Core.Exceptions;
-using Travel_agency.Core.BusinessModels.Transports;
 using Travel_agency.DataAccess.Abstraction;
 using Travel_agency.DataAccess.Entities;
 
@@ -79,7 +73,7 @@ namespace Travel_agency.BLL.Services
 
         private void ValidateTicketBookingModel(TicketBookingModel model)
         {
-            if(model == null)
+            if (model == null)
                 throw new ArgumentNullException(nameof(model), "Ticket booking cannot be null.");
 
             if (model.TransportId == Guid.Empty)
